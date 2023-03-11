@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./add-property.component.css']
 })
 export class AddPropertyComponent {
+  //@ViewChild('Form') addPropertyForm: NgForm;
   constructor(private router: Router) {}
 
   ngOnInit() {
