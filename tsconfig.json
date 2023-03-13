@@ -5,6 +5,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "suppressImplicitAnyIndexErrors": true,
     "strictPropertyInitialization": false,
+    "strictNullChecks": false,
 
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
