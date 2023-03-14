@@ -9,7 +9,7 @@
           <tab heading="Basic information">
             <div class="form-group col-12">
               <p>I want to</p>
-              <div class="btn-group" btnRadioGroup>
+              <div class="btn-group" btnRadioGroup ngModel name="SellOrRent" required>
                 <label class="btn btn-outline-primary" btnRadio="1" role="button" name="SellRent">Sell</label>
                 <label class="btn btn-outline-primary" btnRadio="2" role="button" name="SellRent">Rent</label>
               </div>
@@ -17,7 +17,7 @@
 
             <div class="form-group col-12">
               <p>BHK (Bedroom, Hall, Kitchen)</p>
-              <div class="btn-group" btnRadioGroup>
+              <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.BHK" name="BHK">
                 <label *ngFor="let x of [1,2,3,4]" class="btn btn-outline-primary" [btnRadio]="x" role="button">{{x}}</label>
               </div>
             </div>
@@ -31,7 +31,7 @@
 
             <div class="form-group col-12">
               <p>Furnishing Type</p>
-              <div class="btn-group" btnRadioGroup>
+              <div class="btn-group" btnRadioGroup [(ngModel)]="propertyView.FType" name="fType">
                 <label *ngFor="let ftype of furnishingTypes" class="btn btn-outline-primary" [btnRadio]="ftype" role="button" name="SellRent">{{ftype}}</label>
               </div>
             </div>
@@ -46,7 +46,7 @@
 
             <div class="form-group col-12">
               <label>City</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" [(ngModel)]="propertyView.City" name="city">
             </div>
 
             <div class="form-group col-12 mt-3">
@@ -59,23 +59,23 @@
 
           <tab heading="Pricing and Area">
             <div class="form-group col-12" >
-              <label>Price (in USD)</label>
+              <label>Price (in EUR)</label>
               <input type="text" class="form-control" name="propPrice" [(ngModel)]="propertyView.Price">
             </div>
 
             <div class="form-group col-12">
-              <label>Security (in USD)</label>
+              <label>Security (in EUR)</label>
               <input type="text" class="form-control">
             </div>
 
             <div class="form-group col-12">
-              <label>Maintenance (in USD)</label>
+              <label>Maintenance (in EUR)</label>
               <input type="text" class="form-control">
             </div>
 
             <div class="form-group col-12">
-              <label>Built Area (in Sqr Feet)</label>
-              <input type="text" class="form-control">
+              <label>Built Area (in Sqr Feet)*</label>
+              <input type="text" class="form-control" [(ngModel)]="propertyView.BuiltArea" name="builtArea">
             </div>
 
             <div class="form-group col-12">
