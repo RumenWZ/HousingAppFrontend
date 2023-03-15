@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
+import { Property } from 'src/app/model/property';
+import { HousingService } from 'src/app/services/housing.service';
 
 @Component({
   selector: 'app-add-property',
@@ -14,10 +16,10 @@ export class AddPropertyComponent {
 
   addPropertyForm!: FormGroup;
   clickedNext: boolean;
+  property = new Property();
 
   propertyTypes: Array<string> = ['House', 'Apartment'];
   furnishingTypes: Array<string> = ['Fully', 'Partially', 'Unfurnished'];
-  readyToMoveOptions: Array<string> = ['Yes', 'No'];
 
   propertyView: IPropertyBase = {
     Id: null,
@@ -34,7 +36,8 @@ export class AddPropertyComponent {
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private housingService: HousingService
     ) {}
 
   ngOnInit() {
@@ -72,7 +75,7 @@ export class AddPropertyComponent {
         PossessionOn: [null],
         AOP: [null],
         Gated: [null],
-        MainEntrnace: [null],
+        MainEntrance: [null],
         Description: [null]
       })
 
@@ -138,19 +141,93 @@ export class AddPropertyComponent {
   get RTM() {
     return this.OtherInfo.controls.RTM as FormControl;
   }
+
+  get CarpetArea() {
+    return this.PriceInfo.controls.CarpetArea as FormControl;
+  }
+
+  get LandMark() {
+    return this.AddressInfo.controls.LandMark as FormControl;
+  }
+
+  get AOP() {
+    return this.OtherInfo.controls.AOP as FormControl;
+  }
+
+  get FloorNo() {
+    return this.AddressInfo.controls.FloorNo as FormControl;
+  }
+
+  get TotalFloors() {
+    return this.AddressInfo.controls.TotalFloors as FormControl;
+  }
+
+  get MainEntrance() {
+    return this.OtherInfo.controls.MainEntrance as FormControl;
+  }
+
+  get Security() {
+    return this.PriceInfo.controls.Security as FormControl;
+  }
+
+  get Gated() {
+    return this.OtherInfo.controls.Gated as FormControl;
+  }
+
+  get Maintenance() {
+    return this.PriceInfo.controls.Maintenance as FormControl;
+  }
+
+  get PossessionOn() {
+    return this.OtherInfo.controls.PossessionOn as FormControl;
+  }
+
+  get Description() {
+    return this.OtherInfo.controls.Description as FormControl;
+  }
+
+
+
   //#endregion
   onBack() {
     this.router.navigate(['/']);
   }
 
   onSubmit(){
-    console.log(this.RTM);
+    console.log(this.Description);
     if (this.TabValidityChecker()) {
+      this.mapProperty()
+      this.housingService.addProperty(this.property)
       console.log('Property successfully listed on our website')
     } else {
       console.log('Form is invalid, please review your entries')
     }
 
+  }
+
+  mapProperty(): void {
+  this.property.SellOrRent = +this.SellOrRent.value;
+  this.property.Name = this.Name.value;
+  this.property.PType = this.PType.value;
+  this.property.BHK = this.BHK.value;
+  this.property.FType = this.FType.value;
+  this.property.Price = this.Price.value;
+  this.property.BuiltArea = this.BuiltArea.value;
+  this.property.CarpetArea = this.CarpetArea.value;
+  this.property.Address = this.Address.value;
+  this.property.Address2 = this.LandMark.value;
+  this.property.City = this.City.value;
+  this.property.FloorNo = this.FloorNo.value;
+  this.property.TotalFloors = this.TotalFloors.value;
+  this.property.RTM = this.RTM.value;
+  this.property.AOP = this.AOP.value;
+  this.property.MainEntrance = this.MainEntrance.value;
+  this.property.Security = this.Security.value;
+  this.property.Gated = this.Gated.value;
+  this.property.Maintenance = this.Maintenance.value;
+  this.property.PossessionOn = this.PossessionOn.value;
+  this.property.Description = this.Description.value;
+  this.property.PostedOn = new Date().toString();
   }
 
   TabValidityChecker(): boolean {
