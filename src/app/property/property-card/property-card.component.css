@@ -2,6 +2,11 @@
   min-height: 433px;
 }
 
+.card-body h1 {
+  font-family: fantasy;
+  color: #0069d9;
+}
+
 .card-img-wrapper {
   overflow: hidden;
   position: relative;
@@ -20,6 +25,11 @@
   transition-duration: 300ms;
   transition-timing-function: ease-out;
   height: 270px;
+}
+
+.highlight-font {
+  font-family: italic;
+  color: red;
 }
 
 .member-icons {
