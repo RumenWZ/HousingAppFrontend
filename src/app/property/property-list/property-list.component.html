@@ -1,5 +1,10 @@
+<label>Filter City:</label>
+
+<input [(ngModel)]='city'>
+<button (click)="onSearchClick()" type="button">Search</button>
+
 <div class="row">
-  <div *ngFor="let property of properties" class="col-sm-4 p-3">
+  <div *ngFor="let property of properties|filter:searchCityFilter:'City'|sort: ['Price', 'desc']" class="col-sm-4 p-3">
     <app-property-card [property]="property"></app-property-card>
   </div>
 </div>

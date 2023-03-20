@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { HousingService } from 'src/app/services/housing.service';
@@ -9,13 +9,21 @@ import { HousingService } from 'src/app/services/housing.service';
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css']
 })
-export class PropertyListComponent{
+export class PropertyListComponent implements OnInit{
   SellRent = 1;
   properties: Array<IPropertyBase>;
+  city: '';
+  searchCityFilter: '';
 
   constructor(private housingService: HousingService, private route: ActivatedRoute) { }
 
+
+  onSearchClick(){
+    this.searchCityFilter = this.city;
+  }
+
   ngOnInit(): void {
+    this.searchCityFilter = '';
     if (this.route.snapshot.url.toString()) {
       this.SellRent = 2;
     }
