@@ -14,12 +14,27 @@ export class PropertyListComponent implements OnInit{
   properties: Array<IPropertyBase>;
   city: '';
   searchCityFilter: '';
+  sortByParam = 'City';
+  sortDirection = 'asc';
 
   constructor(private housingService: HousingService, private route: ActivatedRoute) { }
 
 
   onSearchClick(){
     this.searchCityFilter = this.city;
+  }
+
+  onClearClick(){
+    this.searchCityFilter = '';
+    this.city = '';
+  }
+
+  toggleSortDirection(){
+    if (this.sortDirection === 'asc') {
+      this.sortDirection = 'desc';
+    } else {
+      this.sortDirection = 'asc';
+    }
   }
 
   ngOnInit(): void {
