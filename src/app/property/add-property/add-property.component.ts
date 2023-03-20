@@ -5,6 +5,7 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { IPropertyBase } from 'src/app/model/ipropertybase';
 import { Property } from 'src/app/model/property';
 import { HousingService } from 'src/app/services/housing.service';
+import { AlertifyService } from 'src/app/services/alertify.service';
 
 @Component({
   selector: 'app-add-property',
@@ -37,7 +38,8 @@ export class AddPropertyComponent {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private housingService: HousingService
+    private housingService: HousingService,
+    private alertify: AlertifyService
     ) {}
 
   ngOnInit() {
@@ -196,16 +198,23 @@ export class AddPropertyComponent {
   onSubmit(){
     console.log(this.Description);
     if (this.TabValidityChecker()) {
-      this.mapProperty()
-      this.housingService.addProperty(this.property)
-      console.log('Property successfully listed on our website')
+      this.mapProperty();
+      this.housingService.addProperty(this.property);
+      this.alertify.success('Property successfully listed on our website');
+
+      if (this.SellOrRent.value === '2') {
+        this.router.navigate(['/rent-property']);
+      }else {
+        this.router.navigate(['/']);
+      }
     } else {
-      console.log('Form is invalid, please review your entries')
+      this.alertify.error('Form is invalid, please review your entries');
     }
 
   }
 
   mapProperty(): void {
+  this.property.Id = this.housingService.newPropID();
   this.property.SellOrRent = +this.SellOrRent.value;
   this.property.Name = this.Name.value;
   this.property.PType = this.PType.value;
@@ -258,6 +267,7 @@ export class AddPropertyComponent {
     console.log(this.Address);
     if (currentTabValid) {
       this.formTabs.tabs[id].active = true;
+      this.clickedNext = false;
     }
   }
 }
